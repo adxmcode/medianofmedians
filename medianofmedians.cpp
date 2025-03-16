@@ -6,7 +6,9 @@
 using namespace std;
 
 int findMedian(vector<int>& arr, int start, int size) {
+	cout << "Finding median: " << endl;
 	sort(arr.begin() + start, arr.begin() + start + size);
+	cout << "median is: " << arr[start + size / 2] << endl;
 	return arr[start + size / 2];
 }
 
@@ -15,7 +17,8 @@ void printArray(vector<int>& arr) {
 	for (int i = 0; i < arr.size(); i++) {
 		cout << arr[i] << " ";
 	}
-	cout << "}";
+	cout << "}" << endl;
+	cout << "==========================" << endl;
 }
 
 int medianOfMedians(vector<int>& arr, int left, int right) {
@@ -33,7 +36,7 @@ int medianOfMedians(vector<int>& arr, int left, int right) {
 		medians.push_back(findMedian(arr, i, size));
 	}
 	printArray(medians);
-	cout << endl;
+
 	return medianOfMedians(medians, 0, medians.size() - 1);
 }
 
@@ -49,6 +52,7 @@ int partition(vector<int>& arr, int left, int right, int pivot) {
 		}
 	}
 	swap(arr[i], arr[right]);
+	printArray(arr);
 	return i;
 }
 
@@ -57,9 +61,9 @@ int selectKth(vector<int>& arr, int left, int right, int k) {
 	if (left == right) {
 		return arr[left];
 	}
-
+	cout << "Splitting array into groups of five" << endl;
 	int pivot = medianOfMedians(arr, left, right);
-
+	cout << "Partitioning the array: " << endl;
 	int pivotIndex = partition(arr, left, right, pivot);
 
 	int rank = pivotIndex - left + 1;
