@@ -10,6 +10,14 @@ int findMedian(vector<int>& arr, int start, int size) {
 	return arr[start + size / 2];
 }
 
+void printArray(vector<int>& arr) {
+	cout << "{";
+	for (int i = 0; i < arr.size(); i++) {
+		cout << arr[i] << " ";
+	}
+	cout << "}";
+}
+
 int medianOfMedians(vector<int>& arr, int left, int right) {
 	int n = right - left + 1;
 
@@ -24,7 +32,8 @@ int medianOfMedians(vector<int>& arr, int left, int right) {
 		int size = min(5, right - i + 1);
 		medians.push_back(findMedian(arr, i, size));
 	}
-
+	printArray(medians);
+	cout << endl;
 	return medianOfMedians(medians, 0, medians.size() - 1);
 }
 
@@ -61,7 +70,7 @@ int selectKth(vector<int>& arr, int left, int right, int k) {
 		return selectKth(arr, left, pivotIndex - 1, k);
 	}
 	else {
-		return  selectKth(arr, pivotIndex + 1, right, k - rank);
+		return selectKth(arr, pivotIndex + 1, right, k - rank);
 	}
 }
 
@@ -72,7 +81,7 @@ int medianOfMediansSelect(vector<int>& arr, int k) {
 int main() {
 	int number = 0;
 	vector<int>testArray;
-	cout << "Insert numbers: " << endl;
+	cout << "Insert numbers: ";
 	cin >> number;
 	while (number != -1) {
 		testArray.push_back(number);
@@ -81,6 +90,8 @@ int main() {
 	cout << "Give a number " << endl;
 	int pick;
 	cin >> pick;
+	printArray(testArray);
+	cout << endl;
 	cout << "The " << pick << "th smallest element is: " << medianOfMediansSelect(testArray, pick) << endl;
 	return 0;
 }
